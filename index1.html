@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sevgililer Günü 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        overflow: hidden;
+    }
+
+    h1 {
+        margin-top: 120px;
+        color: white;
+        font-size: 26px;
+    }
+
+    .message {
+        margin-top: 20px;
+        font-size: 20px;
+        color: white;
+        min-height: 30px;
+    }
+
+    .buttons {
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        position: relative;
+    }
+
+    button {
+        padding: 15px 35px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #yesBtn {
+        background-color: #ff4d6d;
+        color: white;
+    }
+
+    #noBtn {
+        background-color: #444;
+        color: white;
+        position: relative;
+    }
+
+    .flower-page {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+    .flower-page h2 {
+        color: white;
+        margin-top: 200px;
+        font-size: 38px;
+    }
+
+    .flower {
+        position: absolute;
+        font-size: 30px;
+        animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10%); opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Benimle Sevgililer Gününe birlikte girer misin? 💖</h1>
+
+<div class="message" id="message"></div>
+
+<div class="buttons">
+    <button id="yesBtn">Evet 💘</button>
+    <button id="noBtn">Hayır 🙈</button>
+</div>
+
+<div class="flower-page" id="flowerPage">
+    <h2>Teşekkür ederim 💐❤️</h2>
+</div>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const flowerPage = document.getElementById("flowerPage");
+    const message = document.getElementById("message");
+    const music = document.getElementById("music");
+
+    const messages = [
+        "Emin misin? 🥺",
+        "Bir daha düşün bence 😌",
+        "Kalbim kırılıyor ama 💔",
+        "Yanlış butona bastın galiba 😏",
+        "Hadi amaaa 😅",
+        "Kader bizi zorluyor 😄"
+    ];
+
+    let messageIndex = 0;
+
+    noBtn.addEventListener("click", function() {
+
+        // Mesaj göster
+        message.innerText = messages[messageIndex];
+        messageIndex = (messageIndex + 1) % messages.length;
+
+        // Ekran sınırlarını hesapla
+        const buttonWidth = noBtn.offsetWidth;
+        const buttonHeight = noBtn.offsetHeight;
+
+        const maxX = window.innerWidth - buttonWidth - 20;
+        const maxY = window.innerHeight - buttonHeight - 20;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.position = "absolute";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        music.play();
+    });
+
+    yesBtn.addEventListener("click", function() {
+        flowerPage.style.display = "block";
+        createFlowers();
+        music.play();
+    });
+
+    function createFlowers() {
+        setInterval(() => {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.innerHTML = "🌸";
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            flowerPage.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, 5000);
+        }, 300);
+    }
+</script>
+
+</body>
+</html>
